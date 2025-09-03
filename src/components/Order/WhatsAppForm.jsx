@@ -14,7 +14,7 @@ export default function WhatsAppForm() {
     today.setDate(today.getDate() + 2);
     return today.toISOString().split("T")[0]; // format YYYY-MM-DD
   };
-
+  const businessNumber = "201065155248"; // Replace with actual business number
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -73,12 +73,11 @@ Delivery date: ${deliveryDate}
 ${imageUrl ? "Image: " + imageUrl : ""}
     `;
 
-    window.open(
-      `https://wa.me/201065155248?text=${encodeURIComponent(
-        whatsappText
-      )}`,
-      "_blank"
-    );
+   window.open(
+  `https://wa.me/${businessNumber}?text=${encodeURIComponent(whatsappText)}`,
+  "_blank"
+);
+
   };
 
   return (
