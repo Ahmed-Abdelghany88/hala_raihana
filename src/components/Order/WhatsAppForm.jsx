@@ -65,16 +65,16 @@ export default function WhatsAppForm() {
   };
 
   const sendWhatsAppMessage = (imageUrl) => {
-    const whatsappText = `
-Hello, my name is ${name}.
-Phone: ${phone}
-Cake size: ${cakeSize} cm
-Delivery date: ${deliveryDate}
-${imageUrl ? "Image: " + imageUrl : ""}
-    `;
+//     const whatsappText = `
+// Hello, my name is ${name}.
+// Phone: ${phone}
+// Cake size: ${cakeSize} cm
+// Delivery date: ${deliveryDate}
+// ${imageUrl ? "Image: " + imageUrl : ""}
+//     `;
 
    window.open(
-  `https://wa.me/${businessNumber}?text=${encodeURIComponent(whatsappText)}`,
+  `https://wa.me/${businessNumber}?text='Hello, my name is ${name}. Phone: ${phone}. Cake size: ${cakeSize} cm. Delivery date: ${deliveryDate}. ${imageUrl ? "Image: " + imageUrl : ""}'`,
   "_blank"
 );
 
