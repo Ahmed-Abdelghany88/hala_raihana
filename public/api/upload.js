@@ -19,17 +19,18 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'No image provided' });
     }
 
-    // Upload base64 to Cloudinary
     const uploadResponse = await cloudinary.uploader.upload(imageBase64, {
       folder: 'whatsapp_uploads',
     });
 
+    console.log('✅ Cloudinary response:', uploadResponse.secure_url);
+
     return res.status(200).json({
       success: true,
-      imageUrl: uploadResponse.secure_url, // ✅ return public URL
+      imageUrl: uploadResponse.secure_url,
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Upload failed' });
+    console.error('❌ Cloudinary upload failed:', error);
+    return res.status(500).json({ error: 'Upload failed', details: error });
   }
 }

@@ -37,27 +37,29 @@ const WhatsAppForm = () => {
     let imageUrl = "";
 
     if (file) {
-      try {
-        // Convert to base64
-        const base64 = await fileToBase64(file);
+  try {
+    const base64 = await fileToBase64(file);
 
-        // Upload to Vercel API → Cloudinary
-        const uploadRes = await fetch("/api/upload", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ imageBase64: base64 }),
-        });
+    console.log("🔍 Base64 length:", base64.length); // Debug
 
-        const data = await uploadRes.json();
-        if (data.imageUrl) {
-          imageUrl = data.imageUrl;
-        } else {
-          console.error("Upload failed:", data);
-        }
-      } catch (err) {
-        console.error("Upload error:", err);
-      }
+    const uploadRes = await fetch("/api/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ imageBase64: base64 }),
+    });
+
+    const data = await uploadRes.json();
+    console.log("🔍 Upload response:", data); // Debug
+
+    if (data.imageUrl) {
+      imageUrl = data.imageUrl;
+    } else {
+      console.error("❌ No imageUrl returned:", data);
     }
+  } catch (err) {
+    console.error("❌ Upload error:", err);
+  }
+}
 
     // --- Build WhatsApp message ---
     const whatsappText = `
