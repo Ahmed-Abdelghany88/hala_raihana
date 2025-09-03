@@ -74,7 +74,7 @@ ${imageUrl ? "Image: " + imageUrl : ""}
     `;
 
     window.open(
-      `https://wa.me/YOUR_PHONE_NUMBER?text=${encodeURIComponent(
+      `https://wa.me/201065155248?text=${encodeURIComponent(
         whatsappText
       )}`,
       "_blank"
