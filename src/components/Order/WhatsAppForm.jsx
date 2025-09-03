@@ -69,7 +69,7 @@ ${imageUrl ? "Image: " + imageUrl : ""}
     `;
 
     // Replace with your business WhatsApp number (international format, no +, no 00)
-    const businessNumber = "201234567890";
+    const businessNumber = "201065155248";
 
     window.open(
       `https://wa.me/${businessNumber}?text=${encodeURIComponent(
