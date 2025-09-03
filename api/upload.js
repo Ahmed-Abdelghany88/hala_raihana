@@ -1,4 +1,3 @@
-// api/upload.js
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
@@ -23,14 +22,17 @@ export default async function handler(req, res) {
       folder: 'whatsapp_uploads',
     });
 
-    console.log('✅ Cloudinary response:', uploadResponse.secure_url);
-
     return res.status(200).json({
       success: true,
       imageUrl: uploadResponse.secure_url,
     });
   } catch (error) {
     console.error('❌ Cloudinary upload failed:', error);
-    return res.status(500).json({ error: 'Upload failed', details: error });
+
+    // Send full error info to frontend for debugging
+    return res.status(500).json({
+      error: 'Upload failed',
+      details: error.message || error,
+    });
   }
 }
