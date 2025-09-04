@@ -1,5 +1,11 @@
 {
   "welcome": "Welcome to our site",
   "contact": "Contact Us",
-  "description": "We provide modern digital solutions."
+  "description": "We provide modern digital solutions.",
+  "Order-name": "Name",
+  "Order-phone" :"Phone Number",
+  "Order-size": "Choose a Cake Size",
+  "Order-image": "Send us your cake desgin",
+  "Order-date": "Delivery Date",
+  "Order-title": "Cake Order"
 }

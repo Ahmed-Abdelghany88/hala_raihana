@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Order() {
+  const { t } = useTranslation();
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [cakeSize, setCakeSize] = useState("18");
@@ -72,10 +75,10 @@ ${imageUrl ? "Image: " + imageUrl : ""}
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-md max-w-md mx-auto">
-      <h2 className="text-xl font-bold">Order Cake</h2>
+      <h2 className="text-xl font-bold">{t("Order-title")}</h2>
 
       <div>
-        <label className="block">Name</label>
+        <label className="block">{t("Order-name")}</label>
         <input
           type="text"
           value={name}
@@ -86,7 +89,7 @@ ${imageUrl ? "Image: " + imageUrl : ""}
       </div>
 
       <div>
-        <label className="block">Phone Number</label>
+        <label className="block">{t("Order-phone")}</label>
         <input
           type="tel"
           value={phone}
@@ -97,7 +100,7 @@ ${imageUrl ? "Image: " + imageUrl : ""}
       </div>
 
       <div>
-        <label className="block">Cake Size</label>
+        <label className="block">{t("Order-size")}</label>
         <div className="flex gap-4">
           {["18", "20", "24", "26"].map((size) => (
             <label key={size} className="flex items-center gap-1">
@@ -114,12 +117,12 @@ ${imageUrl ? "Image: " + imageUrl : ""}
       </div>
 
       <div>
-        <label className="block">Upload Image (optional)</label>
+        <label className="block">{t("Order-image")}</label>
         <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />
       </div>
 
       <div>
-        <label className="block">Delivery Date</label>
+        <label className="block">{t("Order-date")}</label>
         <input
           type="date"
           value={deliveryDate}
