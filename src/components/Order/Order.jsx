@@ -75,7 +75,7 @@ export default function Order() {
       ${imageUrl ? `Image: ${imageUrl}` : ""}
     `;
 
-    const whatsappUrl = `https://wa.me/201234567890?text=${encodeURIComponent(
+    const whatsappUrl = `https://wa.me/201065155248?text=${encodeURIComponent(
       message
     )}`;
     window.open(whatsappUrl, "_blank");
