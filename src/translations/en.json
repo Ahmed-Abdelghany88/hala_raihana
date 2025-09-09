@@ -7,5 +7,10 @@
   "Order-size": "Choose a Cake Size",
   "Order-image": "Send us your cake desgin",
   "Order-date": "Delivery Date",
-  "Order-title": "Cake Order"
+  "Order-title": "Cake Order",
+  "nav-home":"HOME",
+  "nav-services":"SERVICES",
+  "nav-portfolio":"PORTFOLIO",
+  "nav-more": "More ▾",
+  "order-button":"ORDER NOW"
 }

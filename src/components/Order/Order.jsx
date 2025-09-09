@@ -1,141 +1,190 @@
 import React, { useState } from "react";
+import "./Order.css";
 import { useTranslation } from "react-i18next";
 
 export default function Order() {
   const { t } = useTranslation();
-
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [cakeSize, setCakeSize] = useState("18");
-  const [imageFile, setImageFile] = useState(null);
+  const [size, setSize] = useState("");
+  const [flavor, setFlavor] = useState("");
+  const [imageUrl, setImageUrl] = useState(null);
   const [deliveryDate, setDeliveryDate] = useState("");
 
-  // ✅ minimum delivery date (2 days from today)
+  // Example pricing
+  const flavors = [
+    { name: "Chocolate", basePrice: 10 },
+    { name: "Vanilla", basePrice: 12 },
+    { name: "Strawberry", basePrice: 14 },
+  ];
+  const sizeMultipliers = { "18": 1, "20": 1.2, "24": 1.5, "26": 1.8 };
+
+  const selectedFlavor = flavors.find((f) => f.name === flavor);
+  const totalPrice =
+    selectedFlavor && size
+      ? selectedFlavor.basePrice * sizeMultipliers[size]
+      : null;
+
+  // 📌 Date restriction (max 3 days ahead)
+  
   const getMinDate = () => {
-    const today = new Date();
-    today.setDate(today.getDate() + 2);
-    return today.toISOString().split("T")[0];
+    const max = new Date();
+    max.setDate(max.getDate() + 3);
+    return max.toISOString().split("T")[0];
   };
 
-  const handleSubmit = async (e) => {
+  // 📌 Upload image to Vercel Blob
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Convert to base64
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      try {
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageBase64: reader.result }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          setImageUrl(data.imageUrl);
+        } else {
+          console.error("Upload failed:", data.error);
+        }
+      } catch (err) {
+        console.error("Error uploading image:", err);
+      }
+    };
+  };
+
+  // 📌 Submit WhatsApp message
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    let imageUrl = "";
-
-    // ✅ Upload image if provided
-    if (imageFile) {
-      const reader = new FileReader();
-      reader.readAsDataURL(imageFile);
-
-      await new Promise((resolve, reject) => {
-        reader.onload = async () => {
-          const base64 = reader.result;
-
-          try {
-            const uploadRes = await fetch(`${window.location.origin}/api/upload`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ imageBase64: base64 }),
-            });
-
-            const data = await uploadRes.json();
-            console.log("🔍 Upload response:", data);
-
-            if (data.imageUrl) {
-              imageUrl = data.imageUrl;
-            } else {
-              console.error("❌ No imageUrl returned:", data);
-            }
-            resolve();
-          } catch (err) {
-            console.error("❌ Upload error:", err);
-            reject(err);
-          }
-        };
-        reader.onerror = reject;
-      });
-    }
-
-    // ✅ Build WhatsApp message
-    const whatsappText = `
-Hello, my name is ${name}.
-Phone: ${phone}
-Cake size: ${cakeSize} cm
-Delivery date: ${deliveryDate}
-${imageUrl ? "Image: " + imageUrl : ""}
+    const message = `
+      Name: ${name}
+      Phone: ${phone}
+      Size: ${size} cm
+      Flavor: ${flavor}
+      Date: ${deliveryDate}
+      Price: ${totalPrice ? `$${totalPrice}` : "N/A"}
+      ${imageUrl ? `Image: ${imageUrl}` : ""}
     `;
 
-    const encodedMessage = encodeURIComponent(whatsappText.trim());
-
-    // Replace with your business number (international format, no +, no spaces)
-    const businessNumber = "201065155248";
-
-    window.open(`https://wa.me/${businessNumber}?text=${encodedMessage}`, "_blank");
+    const whatsappUrl = `https://wa.me/201234567890?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-md max-w-md mx-auto">
-      <h2 className="text-xl font-bold">{t("Order-title")}</h2>
+    <div className="order-layout">
+      <form
+        onSubmit={handleSubmit}
+        className="order-form space-y-4 p-4 border rounded-md"
+      >
+        <h2 className="text-xl font-bold">{t("Order-title")}</h2>
 
-      <div>
-        <label className="block">{t("Order-name")}</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          className="border p-2 w-full"
-        />
-      </div>
-
-      <div>
-        <label className="block">{t("Order-phone")}</label>
-        <input
-          type="tel"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          required
-          className="border p-2 w-full"
-        />
-      </div>
-
-      <div>
-        <label className="block">{t("Order-size")}</label>
-        <div className="flex gap-4">
-          {["18", "20", "24", "26"].map((size) => (
-            <label key={size} className="flex items-center gap-1">
-              <input
-                type="radio"
-                value={size}
-                checked={cakeSize === size}
-                onChange={(e) => setCakeSize(e.target.value)}
-              />
-              {size} cm
-            </label>
-          ))}
+        {/* Name */}
+        <div>
+          <label className="block">{t("Order-name")}</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="border p-2 w-full"
+          />
         </div>
-      </div>
 
-      <div>
-        <label className="block">{t("Order-image")}</label>
-        <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />
-      </div>
+        {/* Phone */}
+        <div>
+          <label className="block">{t("Order-phone")}</label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+            className="border p-2 w-full"
+          />
+        </div>
 
-      <div>
-        <label className="block">{t("Order-date")}</label>
-        <input
-          type="date"
-          value={deliveryDate}
-          min={getMinDate()}
-          onChange={(e) => setDeliveryDate(e.target.value)}
-          required
-          className="border p-2 w-full"
-        />
-      </div>
+        {/* Size */}
+        <div>
+          <label className="block">{t("Order-size")}</label>
+          <div className="flex gap-4">
+            {["18", "20", "24", "26"].map((s) => (
+              <label key={s} className="flex items-center gap-1">
+                <input
+                  type="radio"
+                  value={s}
+                  checked={size === s}
+                  onChange={(e) => setSize(e.target.value)}
+                />
+                {s} cm
+              </label>
+            ))}
+          </div>
+        </div>
 
-      <button type="submit" className="bg-green-600 text-white p-2 rounded">
-        Send WhatsApp Message
-      </button>
-    </form>
+        {/* Flavor */}
+        <div>
+          <label className="block">{t("Order-flavor")}</label>
+          <div className="flex gap-4">
+            {flavors.map((f) => (
+              <label key={f.name} className="flex items-center gap-1">
+                <input
+                  type="radio"
+                  value={f.name}
+                  checked={flavor === f.name}
+                  onChange={(e) => setFlavor(e.target.value)}
+                />
+                {f.name}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Upload */}
+        <div>
+          <label className="block">{t("Order-image")}</label>
+          <input type="file" accept="image/*" onChange={handleImageUpload} />
+          {imageUrl && (
+            <p className="text-green-600 text-sm mt-1">✅ Image uploaded</p>
+          )}
+        </div>
+
+        {/* Date */}
+        <div>
+          <label className="block">{t("Order-date")}</label>
+          <input
+            type="date"
+            value={deliveryDate}
+            min={getMinDate()}
+            onChange={(e) => setDeliveryDate(e.target.value)}
+            required
+            className="border p-2 w-full"
+          />
+        </div>
+
+        {/* Price */}
+        {size && (
+          <h3 className="text-lg font-semibold mt-2">
+            Price: {totalPrice ? `$${totalPrice}` : "Choose flavor"}
+          </h3>
+        )}
+
+        <button
+          type="submit"
+          className="bg-green-600 text-white p-2 rounded w-full"
+        >
+          Submit Your Order
+        </button>
+      </form>
+    </div>
   );
 }

@@ -7,5 +7,10 @@
   "Order-size": "اختار مقاس الكيك",
   "Order-image": "أرسل لنا تصميم الكيك الخاص بك",
   "Order-date": "تاريخ التوصيل",
-  "Order-title": "طلب الكيك"
+  "Order-title": "طلب الكيك",
+  "nav-home":"الرئيسية",
+  "nav-services":"خدماتنا",
+  "nav-portfolio":"منتجاتنا",
+  "nav-more": "المزيد ▾",
+  "order-button":"اطلب الان"
 }

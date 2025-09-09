@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import USFlag from '../../assets/svg/us.svg';
 import EGFlag from "../../assets/svg/sa.svg";
 import "../Navbar/Navbar.css"; // Ensure you have the CSS file for styling
-// import logo from "../../assets/images/logo.jpg"; // Adjust the path as necessary
-// import logo2 from "../../assets/images/logo2.png"; // Adjust the path as necessary
+import logo from '../../assets/images/logo.png';
+import {Link} from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,14 +35,13 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       {/* Logo */}
-      {/* <img className="navbar-logo" src={logo2} alt="MyBrand" /> */}
-      
-
+      <img className="navbar-logo" src={logo} alt="MyBrand" />
+      <div className="navbar-container">
       {/* Links */}
       <ul className={`navbar-links ${isOpen ? "active" : ""}`}>
-        <li><a href="#home" onClick={() => setIsOpen(false)}>Home</a></li>
-        <li><a href="#services" onClick={() => setIsOpen(false)}>Services</a></li>
-        <li><a href="#portfolio" onClick={() => setIsOpen(false)}>Portfolio</a></li>
+        <li><Link to="/" onClick={() => setIsOpen(false)}>{t("nav-home")}</Link></li>
+        <li><a href="#services" onClick={() => setIsOpen(false)}>{t("nav-services")}</a></li>
+        <li><a href="#portfolio" onClick={() => setIsOpen(false)}>{t("nav-portfolio")}</a></li>
 
         {/* Dropdown */}
         <li
@@ -54,7 +53,7 @@ export default function Navbar() {
             className="dropdown-toggle"
             onClick={handleDropdownClick}
           >
-            More ▾
+            {t("nav-more")}
           </button>
           {dropdownOpen && (
             <ul className="dropdown-menu">
@@ -82,6 +81,7 @@ export default function Navbar() {
       {/* Mobile Menu Toggle */}
       <div className="navbar-toggle" onClick={toggleMenu}>
         {isOpen ? "✖" : "☰"}
+      </div>
       </div>
     </nav>
   );
