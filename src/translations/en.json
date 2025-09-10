@@ -1,16 +1,21 @@
-{
-  "welcome": "Welcome to our site",
-  "contact": "Contact Us",
-  "description": "We provide modern digital solutions.",
+{  "nav-home":"HOME",
+  "nav-services":"SERVICES",
+  "nav-portfolio":"PORTFOLIO",
+  "nav-more": "More ▾",
+
   "Order-name": "Name",
   "Order-phone" :"Phone Number",
   "Order-size": "Choose a Cake Size",
   "Order-image": "Send us your cake desgin",
   "Order-date": "Delivery Date",
   "Order-title": "Cake Order",
-  "nav-home":"HOME",
-  "nav-services":"SERVICES",
-  "nav-portfolio":"PORTFOLIO",
-  "nav-more": "More ▾",
-  "order-button":"ORDER NOW"
+  "Order-submit":"Confirm Your ORDER",
+  "Order-type": "Cake Type",
+  "Order-flavor" : "Cake flavor",
+  "Order-price": "Price Start By: ",
+  "Order-flavor-chocolate":"chocolate",
+  "Order-flavor-vanilla":"vanilla",
+  "Order-flavor-strawberry":"strawberry",
+  "Order-type-fondant": "fondant",
+  "Order-type-buttercream":"buttercream"
 }

@@ -10,50 +10,42 @@ export default function OrderForm() {
   const [flavor, setFlavor] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [deliveryDate, setDeliveryDate] = useState("");
+  const [type, setType] = useState("");
 
   // Example pricing + demo images
   const flavors = [
-    {
-      name: "Chocolate",
-      basePrice: 10,
-      images: {
-        "18": "https://via.placeholder.com/250/8B4513?text=Choco+18",
-        "20": "https://via.placeholder.com/250/8B4513?text=Choco+20",
-        "24": "https://via.placeholder.com/250/8B4513?text=Choco+24",
-        "26": "https://via.placeholder.com/250/8B4513?text=Choco+26",
-      },
-    },
-    {
-      name: "Vanilla",
-      basePrice: 12,
-      images: {
-        "18": "https://via.placeholder.com/250/F3E5AB?text=Vanilla+18",
-        "20": "https://via.placeholder.com/250/F3E5AB?text=Vanilla+20",
-        "24": "https://via.placeholder.com/250/F3E5AB?text=Vanilla+24",
-        "26": "https://via.placeholder.com/250/F3E5AB?text=Vanilla+26",
-      },
-    },
-    {
-      name: "Strawberry",
-      basePrice: 14,
-      images: {
-        "18": "https://via.placeholder.com/250/FFB6C1?text=Straw+18",
-        "20": "https://via.placeholder.com/250/FFB6C1?text=Straw+20",
-        "24": "https://via.placeholder.com/250/FFB6C1?text=Straw+24",
-        "26": "https://via.placeholder.com/250/FFB6C1?text=Straw+26",
-      },
-    },
+    {"name":t("Order-flavor-chocolate")},
+    {"name":t("Order-flavor-vanilla")},
+    {"name":t("Order-flavor-strawberry")}
   ];
-
+  const types = [
+    {name:t("Order-type-fondant"),
+    basePrice: 14,
+      images: {
+        "18": "https://via.placeholder.com/250/FFB6C1?text=fondant+18",
+        "20": "https://via.placeholder.com/250/FFB6C1?text=fondant+20",
+        "24": "https://via.placeholder.com/250/FFB6C1?text=fondant+24",
+        "26": "https://via.placeholder.com/250/FFB6C1?text=fondant+26",
+      }
+  }, 
+  {name:t("Order-type-buttercream"),
+    basePrice: 12,
+      images: {
+        "18": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+18",
+        "20": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+20",
+        "24": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+24",
+        "26": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+26",
+      }
+  }];
   const sizeMultipliers = { "18": 1, "20": 1.2, "24": 1.5, "26": 1.8 };
 
-  const selectedFlavor = flavors.find((f) => f.name === flavor);
+  const selectedType = types.find((t) => t.name === type);
   const previewImage =
-    selectedFlavor && size ? selectedFlavor.images[size] : null;
+    selectedType && size ? selectedType.images[size] : null;
 
   const totalPrice =
-    selectedFlavor && size
-      ? selectedFlavor.basePrice * sizeMultipliers[size]
+    selectedType && size
+      ? selectedType.basePrice * sizeMultipliers[size]
       : null;
 
   // 📌 Date restriction (max 3 days ahead)
@@ -100,7 +92,7 @@ export default function OrderForm() {
       Price: ${totalPrice ? `$${totalPrice}` : "N/A"}
       ${imageUrl ? `Image: ${imageUrl}` : ""}
     `;
-    const whatsappUrl = `https://wa.me/201234567890?text=${encodeURIComponent(
+    const whatsappUrl = `https://wa.me/201065155248?text=${encodeURIComponent(
       message
     )}`;
     window.open(whatsappUrl, "_blank");
@@ -146,6 +138,21 @@ export default function OrderForm() {
           ))}
         </div>
 
+        {/* Type */}
+        <label className="block">{t("Order-type")}</label>
+        <div className="radio-group">
+          {types.map((t) => (
+            <label key={t.name}>
+              <input
+                type="radio"
+                value={t.name}
+                checked={type === t.name}
+                onChange={(e) => setType(e.target.value)}
+              />
+              {t.name}
+            </label>
+          ))}
+        </div>
         {/* Flavor */}
         <label className="block">{t("Order-flavor")}</label>
         <div className="radio-group">
@@ -161,7 +168,6 @@ export default function OrderForm() {
             </label>
           ))}
         </div>
-
         {/* Upload */}
         <label className="block">{t("Order-image")}</label>
         <input type="file" accept="image/*" onChange={handleImageUpload} />
@@ -181,17 +187,17 @@ export default function OrderForm() {
         {/* Price */}
         {size && (
           <h3 className="price">
-            Price: {totalPrice ? `$${totalPrice}` : "Choose flavor"}
+            {t("Order-price")}: {totalPrice ? `$${totalPrice}` : "Choose flavor"}
           </h3>
         )}
 
-        <button type="submit">Send WhatsApp Message</button>
+        <button type="submit">{t("Order-submit")}</button>
       </form>
 
       {/* Right: Preview */}
       <div className="order-preview">
         {previewImage ? (
-          <img src={previewImage} alt={`${flavor} ${size}`} />
+          <img src={previewImage} alt={`${type} ${size}`} />
         ) : (
           <div className="placeholder">🍰 Select options to preview cake</div>
         )}

@@ -1,16 +1,22 @@
 {
-  "welcome": "مرحباً بكم في موقعنا",
-  "contact": "اتصل بنا",
-  "description": "نحن نقدم حلول رقمية حديثة.",
+    "nav-home":"الرئيسية",
+  "nav-services":"خدماتنا",
+  "nav-portfolio":"منتجاتنا",
+  "nav-more": "المزيد ▾",
+
   "Order-name": "الأسم",
   "Order-phone" :"رقم المحمول",
   "Order-size": "اختار مقاس الكيك",
   "Order-image": "أرسل لنا تصميم الكيك الخاص بك",
   "Order-date": "تاريخ التوصيل",
   "Order-title": "طلب الكيك",
-  "nav-home":"الرئيسية",
-  "nav-services":"خدماتنا",
-  "nav-portfolio":"منتجاتنا",
-  "nav-more": "المزيد ▾",
-  "order-button":"اطلب الان"
+  "Order-submit":"تأكيد الطلب",
+  "Order-type": "نوع الكيك",
+  "Order-flavor" : "نكهة الكيك",
+  "Order-price": "السعر يبدأ من",
+  "Order-flavor-chocolate":"شوكولاتة",
+  "Order-flavor-vanilla":"فانيلا",
+  "Order-flavor-strawberry":"فراولة",
+  "Order-type-fondant": "عجينة سكر",
+  "Order-type-buttercream":"كريمة زبدة"
 }
