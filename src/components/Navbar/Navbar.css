@@ -60,18 +60,18 @@ html, body {
 .ar-flag{
   width: 28px;
   height: 28px;
-  border-radius: 50%;
   cursor: pointer;
-    margin: 5px;
-
+align-self: center;
+margin: 0 2.5px;
 }
 
-.us-flag{
+.en-flag{
   width: 28px;
   height: 28px;
-  border-radius: 50%;
   cursor: pointer;
-  margin: 5px;
+  align-self: center;
+  margin: 0 2.5px;
+  padding-top: 2px;
 }
 /* Dropdown Menu */
 .dropdown-menu {

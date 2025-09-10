@@ -11,6 +11,7 @@ export default function OrderForm() {
   const [imageUrl, setImageUrl] = useState(null);
   const [deliveryDate, setDeliveryDate] = useState("");
   const [type, setType] = useState("");
+  const [shape, setShape] = useState("");
 
   // Example pricing + demo images
   const flavors = [
@@ -22,22 +23,39 @@ export default function OrderForm() {
     {name:t("Order-type-fondant"),
     basePrice: 14,
       images: {
-        "18": "https://via.placeholder.com/250/FFB6C1?text=fondant+18",
-        "20": "https://via.placeholder.com/250/FFB6C1?text=fondant+20",
+        "12": "https://via.placeholder.com/250/FFB6C1?text=fondant+12",
+        "16": "https://via.placeholder.com/250/FFB6C1?text=fondant+16",
         "24": "https://via.placeholder.com/250/FFB6C1?text=fondant+24",
-        "26": "https://via.placeholder.com/250/FFB6C1?text=fondant+26",
+        "28": "https://via.placeholder.com/250/FFB6C1?text=fondant+28",
+        "20x30": "https://via.placeholder.com/250/FFB6C1?text=fondant+20x30",
+        "30x40": "https://via.placeholder.com/250/FFB6C1?text=fondant+30x40",
+        "16+12": "https://via.placeholder.com/250/FFB6C1?text=fondant+16+12",
+        "24+16": "https://via.placeholder.com/250/FFB6C1?text=fondant+24+16",
+        "28+24": "https://via.placeholder.com/250/FFB6C1?text=fondant+28+24",
       }
   }, 
-  {name:t("Order-type-buttercream"),
+  {name:t("Order-type-cream"),
     basePrice: 12,
       images: {
-        "18": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+18",
-        "20": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+20",
-        "24": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+24",
-        "26": "https://via.placeholder.com/250/FFB6C1?text=Buttercream+26",
+        "12": "https://via.placeholder.com/250/FFB6C1?text=cream+12",
+        "16": "https://via.placeholder.com/250/FFB6C1?text=cream+16",
+        "24": "https://via.placeholder.com/250/FFB6C1?text=cream+24",
+        "28": "https://via.placeholder.com/250/FFB6C1?text=cream+28",
+        "20x30": "https://via.placeholder.com/250/FFB6C1?text=cream+20x30",
+        "30x40": "https://via.placeholder.com/250/FFB6C1?text=cream+30x40",
+        "16+12": "https://via.placeholder.com/250/FFB6C1?text=cream+16+12",
+        "24+16": "https://via.placeholder.com/250/FFB6C1?text=cream+24+16",
+        "28+24": "https://via.placeholder.com/250/FFB6C1?text=cream+28+24",
       }
   }];
-  const sizeMultipliers = { "18": 1, "20": 1.2, "24": 1.5, "26": 1.8 };
+
+  const sizes = [
+    { name: t("Order-shape-round"), dimensions: ["12", "16", "24", "28"] },
+    { name: t("Order-shape-rectangular"), dimensions: ["20x30", "30x40"] },
+    { name: t("Order-shape-twoTiers"), dimensions: ["16+12", "24+16", "28+24"] },
+  ];
+  const selectedShape = sizes.find((s) => s.name === shape);
+  const sizeMultipliers = { "12": 1, "16": 1.2, "24": 1.5, "28": 1.8 , "20x30": 1.4, "30x40": 1.7, "16+12": 2, "24+16": 2.5, "28+24": 3 };
 
   const selectedType = types.find((t) => t.name === type);
   const previewImage =
@@ -123,20 +141,46 @@ export default function OrderForm() {
         />
 
         {/* Size */}
-        <label className="block">{t("Order-size")}</label>
-        <div className="radio-group">
-          {["18", "20", "24", "26"].map((s) => (
-            <label key={s}>
-              <input
-                type="radio"
-                value={s}
-                checked={size === s}
-                onChange={(e) => setSize(e.target.value)}
-              />
-              {s} cm
-            </label>
-          ))}
-        </div>
+         {/* Shape selection */}
+      <h3>{t("Order-shape")}</h3>
+      <div className="radio-group">
+        {sizes.map((sh) => (
+          <label key={sh.name} className="radio-option">
+            <input
+              type="radio"
+              name="shape"
+              value={sh.name}
+              checked={shape === sh.name}
+              onChange={(e) => {
+                setShape(e.target.value);
+                setSize(""); // reset size when shape changes
+              }}
+            />
+            {sh.name}
+          </label>
+        ))}
+      </div>
+
+      {/* Size selection */}
+      {selectedShape && (
+        <>
+          <h3>{t("Order-size")}</h3>
+          <div className="radio-group">
+            {selectedShape.dimensions.map((s) => (
+              <label key={s} className="radio-option">
+                <input
+                  type="radio"
+                  name="size"
+                  value={s}
+                  checked={size === s}
+                  onChange={(e) => setSize(e.target.value)}
+                />
+                {s} cm
+              </label>
+            ))}
+          </div>
+        </>
+      )}
 
         {/* Type */}
         <label className="block">{t("Order-type")}</label>
@@ -187,7 +231,7 @@ export default function OrderForm() {
         {/* Price */}
         {size && (
           <h3 className="price">
-            {t("Order-price")}: {totalPrice ? `$${totalPrice}` : "Choose flavor"}
+            {t("Order-price")}: {totalPrice ? `$${totalPrice}` : "Choose type"}
           </h3>
         )}
 

@@ -3,6 +3,7 @@
   "nav-portfolio":"PORTFOLIO",
   "nav-more": "More ▾",
 
+  "order-button":"Order Now",
   "Order-name": "Name",
   "Order-phone" :"Phone Number",
   "Order-size": "Choose a Cake Size",
@@ -11,11 +12,15 @@
   "Order-title": "Cake Order",
   "Order-submit":"Confirm Your ORDER",
   "Order-type": "Cake Type",
+  "Order-shape":"Cake Shape",
   "Order-flavor" : "Cake flavor",
   "Order-price": "Price Start By: ",
   "Order-flavor-chocolate":"chocolate",
   "Order-flavor-vanilla":"vanilla",
   "Order-flavor-strawberry":"strawberry",
   "Order-type-fondant": "fondant",
-  "Order-type-buttercream":"buttercream"
+  "Order-type-cream":"cream",
+  "Order-shape-round":"Rounded",
+  "Order-shape-rectangular":"Rectangular",
+  "Order-shape-twoTiers":"Two Tiers"
 }

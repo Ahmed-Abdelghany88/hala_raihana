@@ -4,6 +4,7 @@ import USFlag from '../../assets/svg/us.svg';
 import EGFlag from "../../assets/svg/sa.svg";
 import "../Navbar/Navbar.css"; // Ensure you have the CSS file for styling
 import logo from '../../assets/images/logo.png';
+import coloredlogo from '../../assets/images/logo-colored.png';
 import {Link} from "react-router-dom";
 
 export default function Navbar() {
@@ -64,19 +65,9 @@ export default function Navbar() {
           )}
         </li>
       </ul>
-             <img className="us-flag"
-          src={USFlag}
-          alt="English"
-          onClick={() => changeLanguage("en")}
-          
-        />
+      <a onClick={() => changeLanguage("en")} className="en-flag">EN</a>
 
-          <img className="ar-flag"
-          src={EGFlag}
-          alt="العربية"
-          onClick={() => changeLanguage("ar")}
-          
-        />
+      <a onClick={() => changeLanguage("ar")} className="ar-flag">ع</a>
 
       {/* Mobile Menu Toggle */}
       <div className="navbar-toggle" onClick={toggleMenu}>
