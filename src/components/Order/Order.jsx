@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Order.css";
 import { useTranslation } from "react-i18next";
+import imagetest from "../../assets/images/cover.webp";
+import logo from "../../assets/images/logo.png";
 
 export default function OrderForm() {
   const { t } = useTranslation();
@@ -23,7 +25,7 @@ export default function OrderForm() {
     {name:t("Order-type-fondant"),
     basePrice: 14,
       images: {
-        "12": "https://via.placeholder.com/250/FFB6C1?text=fondant+12",
+        "12": imagetest,
         "16": "https://via.placeholder.com/250/FFB6C1?text=fondant+16",
         "24": "https://via.placeholder.com/250/FFB6C1?text=fondant+24",
         "28": "https://via.placeholder.com/250/FFB6C1?text=fondant+28",
@@ -67,11 +69,11 @@ export default function OrderForm() {
       : null;
 
   // 📌 Date restriction (max 3 days ahead)
-  const getMinDate = () => new Date().toISOString().split("T")[0];
-  const getMaxDate = () => {
-    const max = new Date();
-    max.setDate(max.getDate() + 3);
-    return max.toISOString().split("T")[0];
+  // const getMinDate = () => new Date().toISOString().split("T")[0];
+  const getMinDate = () => {
+    const min = new Date();
+    min.setDate(min.getDate() + 3);
+    return min.toISOString().split("T")[0];
   };
 
   // 📌 Upload to Vercel Blob
@@ -120,7 +122,10 @@ export default function OrderForm() {
     <div className="order-layout">
       {/* Left: Form */}
       <form onSubmit={handleSubmit} className="order-form">
-        <h2 className="text-xl font-bold">{t("Order-title")}</h2>
+        <div className="form-header">
+          <h2 className="text-xl font-bold">{t("Order-title")}</h2>
+          <img src={logo} alt="Hala Raihana Logo" className="logo" />
+        </div>
 
         {/* Name */}
         <label className="block">{t("Order-name")}</label>
@@ -142,7 +147,7 @@ export default function OrderForm() {
 
         {/* Size */}
          {/* Shape selection */}
-      <h3>{t("Order-shape")}</h3>
+      <label>{t("Order-shape")}</label>
       <div className="radio-group">
         {sizes.map((sh) => (
           <label key={sh.name} className="radio-option">
@@ -223,7 +228,7 @@ export default function OrderForm() {
           type="date"
           value={deliveryDate}
           min={getMinDate()}
-          max={getMaxDate()}
+          // max={getMaxDate()}
           onChange={(e) => setDeliveryDate(e.target.value)}
           required
         />
@@ -239,13 +244,23 @@ export default function OrderForm() {
       </form>
 
       {/* Right: Preview */}
-      <div className="order-preview">
-        {previewImage ? (
-          <img src={previewImage} alt={`${type} ${size}`} />
-        ) : (
-          <div className="placeholder">🍰 Select options to preview cake</div>
-        )}
-      </div>
+<div className="order-preview">
+  <div className="preview-image-wrapper">
+    {previewImage ? (
+      <img src={previewImage} alt={`${type} ${size}`} />
+    ) : (
+      <div className="placeholder">🍰 Select options to preview cake</div>
+    )}
+  </div>
+
+  <div className="preview-summary">
+    <h3>✅ Order Summary</h3>
+    {shape && <p><strong>Shape:</strong> {shape} Cake</p>}
+    {size && <p><strong>Size:</strong> {size} cm</p>}
+    {flavor && <p><strong>Flavor:</strong> {flavor}</p>}
+    {totalPrice > 0 && <p><strong>Total Price Start By:</strong> ${totalPrice}</p>}
+  </div>
+</div>
     </div>
   );
 }
