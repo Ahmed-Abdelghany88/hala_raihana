@@ -1,10 +1,24 @@
-
+.cover{
+  margin-bottom: 10px;
+}
 .cover-image{
-  width: 95%;
+  width: 100%;
   object-fit: contain;
   position: relative;
   justify-self: center;
   display: flex;
+
+}
+
+.cover-logo{
+  position: absolute;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  justify-self: center;
+  top: 57%;
+  right: 45%;
 }
 
 .order-button{
@@ -13,10 +27,11 @@
   justify-content: center;
   align-content: center;
   justify-self: center;
-  bottom: 5%;
+  top: 90%;
+  right: 45%;
   background-color: #FFB74D;
   color: #FFF8F1;
-  width: 150px;
+  width: 200px;
   height: 50px;
   line-height: 50px;  /* same as height for vertical centering */
   text-align: center;
@@ -29,4 +44,74 @@
 .order-button:hover{
   background-color: #fdac31;
   color: #ffedda;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+
+.cover-logo{
+  position: absolute;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  justify-self: center;
+  top: 100px;
+  right: 40%;
+}
+
+.order-button{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  justify-self: center;
+  top: 180px;
+  right: 40%;
+  background-color: #FFB74D;
+  color: #FFF8F1;
+  width: 80px;
+  height: 20px;
+  line-height: 20px;  /* same as height for vertical centering */
+  text-align: center;
+  font-size: 12px;
+  border: 0;
+  border-radius: 5%;
+  cursor: pointer;
+}
+
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+
+.cover-logo{
+  position: absolute;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  justify-self: center;
+  top: 200px;
+  right: 40%;
+}
+
+.order-button{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  justify-self: center;
+  top: 350px;
+  right: 40%;
+  background-color: #FFB74D;
+  color: #FFF8F1;
+  width: 150px;
+  height: 35px;
+  line-height: 35px;  /* same as height for vertical centering */
+  text-align: center;
+  font-size: 16px;
+  border: 0;
+  border-radius: 5%;
+  cursor: pointer;
+}
+
 }

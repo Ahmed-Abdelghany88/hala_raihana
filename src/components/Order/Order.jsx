@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Order.css";
 import { useTranslation } from "react-i18next";
-import imagetest from "../../assets/images/cover.webp";
 import logo from "../../assets/images/logo.png";
 
 export default function OrderForm() {
@@ -14,6 +13,7 @@ export default function OrderForm() {
   const [deliveryDate, setDeliveryDate] = useState("");
   const [type, setType] = useState("");
   const [shape, setShape] = useState("");
+  const [notes, setNotes] = useState("");
 
   // Example pricing + demo images
   const flavors = [
@@ -25,7 +25,7 @@ export default function OrderForm() {
     {name:t("Order-type-fondant"),
     basePrice: 14,
       images: {
-        "12": imagetest,
+        "12": "https://via.placeholder.com/250/FFB6C1?text=fondant+12",
         "16": "https://via.placeholder.com/250/FFB6C1?text=fondant+16",
         "24": "https://via.placeholder.com/250/FFB6C1?text=fondant+24",
         "28": "https://via.placeholder.com/250/FFB6C1?text=fondant+28",
@@ -233,14 +233,23 @@ export default function OrderForm() {
           required
         />
 
-        {/* Price */}
+        {/* Price
         {size && (
           <h3 className="price">
             {t("Order-price")}: {totalPrice ? `$${totalPrice}` : "Choose type"}
           </h3>
-        )}
+        )} */}
 
-        <button type="submit">{t("Order-submit")}</button>
+        {/* Notes */}
+        <label className="order-note">{t("Order-notes")}</label>
+        <input
+        className="order-notes"
+          type="text"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder={t("Order-notes-placeholder")}
+        />
+
       </form>
 
       {/* Right: Preview */}
@@ -254,11 +263,17 @@ export default function OrderForm() {
   </div>
 
   <div className="preview-summary">
-    <h3>✅ Order Summary</h3>
-    {shape && <p><strong>Shape:</strong> {shape} Cake</p>}
-    {size && <p><strong>Size:</strong> {size} cm</p>}
-    {flavor && <p><strong>Flavor:</strong> {flavor}</p>}
-    {totalPrice > 0 && <p><strong>Total Price Start By:</strong> ${totalPrice}</p>}
+    <h3>{t("Order-summary")}</h3>
+    {shape && <p><strong>{t("Order-shape")}:</strong> {shape} </p>}
+    {size && <p><strong>{t("Order-size")}:</strong> {size} </p>}
+    {flavor && <p><strong>{t("Order-flavor")}:</strong> {flavor}</p>}
+    {totalPrice > 0 && <p><strong>{t("Order-price")}:</strong> ${totalPrice}</p>}
+   <button 
+  type="button" 
+  onClick={handleSubmit}   // ✅ call the submit handler
+>
+  {t("Order-submit")}
+</button>
   </div>
 </div>
     </div>

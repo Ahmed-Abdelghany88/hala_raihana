@@ -22,5 +22,8 @@
   "Order-type-cream":"cream",
   "Order-shape-round":"Rounded",
   "Order-shape-rectangular":"Rectangular",
-  "Order-shape-twoTiers":"Two Tiers"
+  "Order-shape-twoTiers":"Two Tiers",
+  "Order-notes":"Order-notes",
+  "Order-notes-placeholder":"Add notes about your order",
+  "Order-summary":"Order-summary"
 }

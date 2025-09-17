@@ -23,5 +23,8 @@
   "Order-type-cream":"كريمة شانتيه",
    "Order-shape-round":"مستديرة",
   "Order-shape-rectangular":"مستطيلة",
-  "Order-shape-twoTiers":"دورين"
+  "Order-shape-twoTiers":"دورين",
+  "Order-notes":"ملاحظات الطلب",
+  "Order-notes-placeholder":"اضف اى تعديل تريده على الطلب",
+  "Order-summary":"ملخص الطلب"
 }

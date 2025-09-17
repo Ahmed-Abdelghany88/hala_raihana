@@ -14,7 +14,7 @@ html, body {
   align-items: center;
   background: #FADADD;
   box-shadow: 0 2px 5px rgba(78, 78, 78, 0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
 }
@@ -124,7 +124,7 @@ margin: 0 2.5px;
     position: absolute;
     top: 60px;
     right: 0;
-    background: rgba(0,0,0,0.8);
+    background: #f4e2c6;
     flex-direction: column;
     width: 200px;
     padding: 1rem;
